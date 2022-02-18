@@ -1,0 +1,48 @@
+clear;
+close all;
+clf;
+
+%generate data
+lab1();
+
+% testpoint = Avalues(:,i);
+resolution = 1;
+x1min = -10;
+x1max = 25;
+x2min = 0;
+x2max = 25;
+x1n = resolution*(x1max - x1min);
+x2n = resolution*(x2max - x2min);
+
+testPoints = zeros(x1n, x2n);
+
+for m = 1:x1n
+    for n = 1:x2n
+        testpoint = [x1min + ]
+
+testpoint = [9.75; 11.5];
+testpointclass = 0;
+Adistances = zeros(1, length(Avalues));
+Bdistances = zeros(1, length(Bvalues));
+
+
+for i = 1:length(Adistances)
+    Adistances(i) = Edist (testpoint,Avalues(:,i));
+end
+
+for i = 1:length(Bdistances)
+    Bdistances(i) = Edist (testpoint,Bvalues(:,i));
+end
+
+
+if min(Adistances) < min(Bdistances)
+    testpointclass = 1;
+else
+    testpointclass = 2;
+end
+
+
+function Edist = Edist(a, b)
+    Edist = sqrt((a(1) - b(1))^2 + (a(2) - b(2))^2);
+end
+
