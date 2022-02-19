@@ -1,5 +1,5 @@
-function generate_and_plot(muA,sigmaA,N, color)
-[VA,DA] = eig(sigmaA)
+function zA = generate_and_plot(muA,sigmaA,N, color)
+[VA,DA] = eig(sigmaA);
 
 WAinv = inv((VA)')*DA^0.5;
 
