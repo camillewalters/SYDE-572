@@ -1,8 +1,4 @@
-% Lab 1
-close all;
-clear all;
-
-lab1();
+%lab1();
 
 % Class A
 nA = 200;
@@ -82,6 +78,7 @@ end
 
 %plotting
 
+figure(1);
 set(gca, 'ydir', 'normal');
 [X_MAPCase_1, Y_MAPCase_1] = meshgrid(feature1Vals, feature2Vals);
 scatter(classA(:,1),classA(:,2), 'r');
@@ -161,4 +158,5 @@ error_MAPCase_1 = size(find(MAP_1_classify(:,1) ~= MAP_1_classify(:,2)),1)/size(
 MAP_2_classify = classify(X_MAPCase_2, Y_MAPCase_2, pointsCase2, classC, 1, classD, 2, classE, 3);
 confusionMatrix_MAP_2 = confusionmat(MAP_2_classify(:,1),MAP_2_classify(:,2));
 error_MAPCase_2 = size(find(MAP_2_classify(:,1) ~= MAP_2_classify(:,2)),1)/size(MAP_2_classify,1);
+
 

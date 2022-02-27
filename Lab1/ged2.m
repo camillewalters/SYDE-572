@@ -1,4 +1,4 @@
-lab1();
+%lab1();
 
 % Class A
 nA = 200;
@@ -80,7 +80,7 @@ d = [dist_a dist_b];
 micd1 = reshape(I, size(X_GED_1));
 
 figure(1)
-contour(X_GED_1,Y_GED_1,micd1,'m')
+contour(X_GED_1,Y_GED_1,micd1,'m', 'DisplayName','GED boundary')
 hold off
 
 %% Calculate GED for Case 2
@@ -92,7 +92,7 @@ y_2 = min([classC(:,2); classD(:,2); classE(:,2)]) : 0.1 : max([classC(:,2); cla
 XY_2 = [X_GED_2(:) Y_GED_2(:)] % space for MICD
 
 
-% Class C
+% Class CF
 % Compute eigenvectors
 [evec2c, eval2c] = eig(sigmaC);
 
@@ -136,7 +136,7 @@ d = [dist_c dist_d dist_e];
 micd2 = reshape(I_2, size(X_GED_2));
 
 figure(2)
-contour(X_GED_2,Y_GED_2,micd2,'m')
+contour(X_GED_2,Y_GED_2,micd2,'m','DisplayName','GED boundary')
 hold off
 
 %% Part 4 - GED
