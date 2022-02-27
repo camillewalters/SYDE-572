@@ -1,5 +1,5 @@
-clear;
-close all;
+% clear;
+% close all;
 clf;
 
 figure(1);
@@ -12,6 +12,16 @@ hold on;
 muB = [10 15]';
 sigmaB = [8 0 ; 0 4];
 B=generate_and_plot(muB, sigmaB, 200, 'b');
+
+% % make cells for Case 1 mu and sigma
+% 
+% mu_AB = cell(2,1);
+% mu_AB{1} = muA;
+% mu_AB{2} = muB;
+% 
+% sigma_AB = cell(2,1);
+% sigma_AB{1} = sigmaA;
+% sigma_AB{2} = sigmaB;
 
 xlabel('X_1')
 ylabel('X_2')
