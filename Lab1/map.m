@@ -6,41 +6,40 @@ lab1();
 
 % Generate clusters
 % Class A
-nA = 200;
+ nA = 200;
 muA = [5;10];
 sigmaA = [8 0; 0 4];
 classA = A';
-%classA = repmat(muA',[nA, 1]) + randn(nA,2)*chol(sigmaA);
-meanA = mean(classA);
+ meanA = mean(classA);
 
 % Class B
-nB = 200;
+ nB = 200;
 muB = [10;15];
 sigmaB = [8 0; 0 4];
-classB = B'
-meanB = mean(classB);
+classB = B';
+ meanB = mean(classB);
 
 % Class C
-nC = 100;
+ nC = 100;
 muC = [5;10];
 sigmaC = [8 4; 4 40];
-classC = C'
-meanC = mean(classC);
+classC = C';
+ meanC = mean(classC);
 
 
 % Class D
-nD = 200;
+ nD = 200;
 muD = [15;10];
 sigmaD = [8 0; 0 8];
-classD = D'
-meanD = mean(classD);
+classD = D';
+ meanD = mean(classD);
 
 % Class E
-nE = 150;
+ nE = 150;
 muE = [10;5];
 sigmaE = [10 -5; -5 20];
-classE = E'
-meanE = mean(classE);
+classE = E';
+ meanE = mean(classE);
 
 % Classes A & B
 
@@ -85,8 +84,15 @@ end
 figure
 hold on;
 set(gca, 'ydir', 'normal');
-[X_MAP_1, Y_MAP_1] = meshgrid(feature1Vals, feature2Vals);
-contour(X_MAP_1,Y_MAP_1,pointsCase1,[2 2],'DisplayName','MAP boundary')
+[X_MAPCase_1, Y_MAPCase_1] = meshgrid(feature1Vals, feature2Vals);
+scatter(classA(:,1),classA(:,2), 'r');
+scatter(classB(:,1),classB(:,2), 'b');
+contour(X_MAPCase_1,Y_MAPCase_1,pointsCase1,[2 2],'DisplayName','MAP boundary')
+xlabel('X_1')
+ylabel('X_2')
+title("Case 1 Classification Contour")
+legend("Class A", "Class B", "Classification Contour", 'Location', 'best')
+
 
 
 classes = [classA; classB; classC; classD; classE];
@@ -101,7 +107,6 @@ priorC = nC / (nC + nD + nE);
 priorD = nD / (nC + nD + nE);
 priorE = nE / (nC + nD + nE);
 
-%initialize posteriors
 logPosteriorC = zeros(arrSize);
 logPosteriorD = zeros(arrSize);
 logPosteriorE = zeros(arrSize);
@@ -134,5 +139,22 @@ end
 figure
 hold on;
 set(gca, 'ydir', 'normal');
-[X_MAP_2, Y_MAP_2] = meshgrid(feature1Vals, feature2Vals);
-contour(X_MAP_2,Y_MAP_2,pointsCase2, 'DisplayName','MAP boundary')
+[X_MAPCase_2, Y_MAPCase_2] = meshgrid(feature1Vals, feature2Vals);
+scatter(classC(:,1),classC(:,2), 'r');
+scatter(classD(:,1),classD(:,2), 'b');
+scatter(classE(:,1),classE(:,2), 'g');
+contour(X_MAPCase_2,Y_MAPCase_2,pointsCase2, 'DisplayName','MAP boundary')
+xlabel('X_1')
+ylabel('X_2')
+title("Case 2 Classification Contour")
+legend("Class C", "Class D", "Class E", "Classification Contour", 'Location', 'best')
+
+
+MAP_1_classify = classify(X_MAPCase_1, Y_MAPCase_1, pointsCase1, classA, 1, classB, 2);
+confusionMatrix_MAPCase_1 = confusionmat(MAP_1_classify(:,1),MAP_1_classify(:,2));
+error_MAPCase_1 = size(find(MAP_1_classify(:,1) ~= MAP_1_classify(:,2)),1)/size(MAP_1_classify,1);
+
+MAP_2_classify = classify(X_MAPCase_2, Y_MAPCase_2, pointsCase2, classC, 1, classD, 2, classE, 3);
+confusionMatrix_MAP_2 = confusionmat(MAP_2_classify(:,1),MAP_2_classify(:,2));
+error_MAPCase_2 = size(find(MAP_2_classify(:,1) ~= MAP_2_classify(:,2)),1)/size(MAP_2_classify,1);
+
