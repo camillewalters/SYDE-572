@@ -1,34 +1,47 @@
 % Class A
 nA = 200;
-muA = [5;10]';
+
+muA = [5;10];
 sigmaA = [8 0; 0 4];
+classA = A';
+meanA = mean(classA);
 
 % Class B
 nB = 200;
-muB = [10;15]';
+muB = [10;15];
 sigmaB = [8 0; 0 4];
+classB = B';
+meanB = mean(classB);
 
 % Class C
 nC = 100;
-muC = [5;10]';
+muC = [5;10];
 sigmaC = [8 4; 4 40];
+classC = C';
+meanC = mean(classC);
+
 
 % Class D
 nD = 200;
-muD = [15;10]';
+muD = [15;10];
 sigmaD = [8 0; 0 8];
+classD = D';
+meanD = mean(classD);
 
 % Class E
 nE = 150;
-muE = [10;5]';
+muE = [10;5];
 sigmaE = [10 -5; -5 20];
+classE = E';
+meanE = mean(classE);
 
 % setup 
 resolution = 10;
-x1min = -5;
-x1max = 20;
-x2min = 0;
-x2max = 25;
+x1min = min([classA(:,1); classB(:,1)]);
+x1max = max([classA(:,1); classB(:,1)]);
+x2min = min([classA(:,2); classB(:,2)]);
+x2max = max([classA(:,2); classB(:,2)]);
+
 x1 = linspace(x1min, x1max, resolution*(x1max - x1min));
 x2 = linspace(x2min, x2max, resolution*(x2max - x2min));
 [X1, X2] = meshgrid(x1, x2);
@@ -37,13 +50,14 @@ x2 = linspace(x2min, x2max, resolution*(x2max - x2min));
 boundary1 = MED1(muA, muB, X1, X2);
 figure(1);
 contour(X1, X2, boundary1, 'Color', 'black')
-%hold off;
+hold on
 
 % plot case 2
 boundary2 = MED2(muC, muD, muE, X1, X2);
 figure(2);
 contour(X1, X2, boundary2, 'Color', 'black')
-%hold off;
+hold on
+
 
 function res = MED1( mu1, mu2, X, Y )
 

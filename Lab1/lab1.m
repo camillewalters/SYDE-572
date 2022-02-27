@@ -45,6 +45,8 @@ ylabel('X_2')
 title("Case 2 Clusters")
 legend("Class C", "Class C Standard Deviation Contour", "Class D", "Class D Standard Deviation Contour", "Class E", "Class E Standard Deviations Contour", 'Location', 'best')
 
+MED();
 map();
 ged2();
+
 
