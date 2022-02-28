@@ -18,7 +18,7 @@ meanB = mean(classB);
 nC = 100;
 muC = [5;10];
 sigmaC = [8 4; 4 40];
-classC = C'
+classC = C';
 meanC = mean(classC);
 
 
@@ -26,14 +26,14 @@ meanC = mean(classC);
 nD = 200;
 muD = [15;10];
 sigmaD = [8 0; 0 8];
-classD = D'
+classD = D';
 meanD = mean(classD);
 
 % Class E
 nE = 150;
 muE = [10;5];
 sigmaE = [10 -5; -5 20];
-classE = E'
+classE = E';
 meanE = mean(classE);
 
 % For Gen Euc Metric, need to find e-vals, e-vecs, apply transform, then
@@ -45,7 +45,7 @@ x_1 = min([classA(:,1); classB(:,1)]) : 0.1 : max([classA(:,1); classB(:,1)]); %
 y_1 = min([classA(:,2); classB(:,2)]) : 0.1 : max([classA(:,2); classB(:,2)]);
 
 [X_GED_1,Y_GED_1] = meshgrid(x_1, y_1); % grid coordinates for plotting
-XY = [X_GED_1(:) Y_GED_1(:)] % space for MICD
+XY = [X_GED_1(:) Y_GED_1(:)]; % space for MICD
 
 
 % Class A
@@ -57,7 +57,7 @@ lambda = diag(diag(eval1a).^-(1/2));
 W_1A = lambda*transpose(evec1a);
 
 % Compute new mean
-m_primeA = W*muA;
+% m_primeA = W*muA;
 
 % Class B
 % Compute eigenvectors
@@ -68,11 +68,11 @@ lambda = diag(diag(eval1b).^-(1/2));
 W_1B = lambda*transpose(evec1b);
 
 % Compute new mean
-m_primeB = W*muB;
+% m_primeB = W*muB;
 
 % Find MICD boundary
-dist_a = sqrt(sum(((XY - repmat(muA', [length(XY) 1]))*W').^2, 2)); % Calculate distance between point and sample mean
-dist_b = sqrt(sum(((XY - repmat(muB', [length(XY) 1]))*W').^2, 2));
+dist_a = sqrt(sum(((XY - repmat(muA', [length(XY) 1]))*W_1A').^2, 2)); % Calculate distance between point and sample mean
+dist_b = sqrt(sum(((XY - repmat(muB', [length(XY) 1]))*W_1B').^2, 2));
 
 d = [dist_a dist_b];
 
@@ -101,7 +101,7 @@ lambda = diag(diag(eval2c).^-(1/2));
 W_2C = lambda*transpose(evec2c); 
 
 % Compute new mean
-m_primeC = W_2*muC;
+% m_primeC = W_2*muC;
 
 % Class D
 % Compute eigenvectors
@@ -112,7 +112,7 @@ lambda = diag(diag(eval2d).^-(1/2));
 W_2D = lambda*transpose(evec2d);
 
 % Compute new mean
-m_primeD = W_2*muD;
+% m_primeD = W_2*muD;
 
 % Class E
 % Compute eigenvectors
@@ -120,10 +120,10 @@ m_primeD = W_2*muD;
 
 % Compute orthonomal whitening transform
 lambda = diag(diag(eval2e).^-(1/2));
-W_2E = lambda*transpose(evec2e)
+W_2E = lambda*transpose(evec2e);
 
 % Compute new mean
-m_primeE = W_2*muE;
+% m_primeE = W_2*muE;
 
 % Find MICD boundary
 dist_c = sqrt(sum(((XY_2 - repmat(muC', [length(XY_2) 1]))*W_2C').^2, 2)); % Calculate distance between point and sample mean
