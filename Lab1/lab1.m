@@ -62,7 +62,7 @@ Etest = Etest';
 MED();
 ged2();
 map();
-map2();
+% map2();
 nn_knn();
 
 figure(1);

@@ -81,8 +81,14 @@ end
 figure(1);
 set(gca, 'ydir', 'normal');
 [X_MAPCase_1, Y_MAPCase_1] = meshgrid(feature1Vals, feature2Vals);
-contour(X_MAPCase_1,Y_MAPCase_1,pointsCase1,[2 2])
+% contour(X_MAPCase_1,Y_MAPCase_1,pointsCase1,[2 2])
+contour(X_MAPCase_1,Y_MAPCase_1,pointsCase1 == 1,1,'c','DisplayName','MAP boundary');
+contour(X_MAPCase_1,Y_MAPCase_1,pointsCase1 == 2,1,'c','DisplayName','');
+contour(X_MAPCase_1,Y_MAPCase_1,pointsCase1 == 3,1,'c','DisplayName','');
+
 hold on;
+
+
 % xlabel('X_1')
 % ylabel('X_2')
 % title("Case 1 Classification Contour")
