@@ -54,7 +54,7 @@ XY = [X_GED_1(:) Y_GED_1(:)] % space for MICD
 
 % Compute orthonomal whitening transform
 lambda = diag(diag(eval1a).^-(1/2));
-W = lambda*transpose(evec1a);
+W_1A = lambda*transpose(evec1a);
 
 % Compute new mean
 m_primeA = W*muA;
@@ -65,7 +65,7 @@ m_primeA = W*muA;
 
 % Compute orthonomal whitening transform
 lambda = diag(diag(eval1b).^-(1/2));
-W = lambda*transpose(evec1b);
+W_1B = lambda*transpose(evec1b);
 
 % Compute new mean
 m_primeB = W*muB;
@@ -89,7 +89,7 @@ x_2 = min([classC(:,1); classD(:,1); classE(:,1)]) : 0.1 : max([classC(:,1); cla
 y_2 = min([classC(:,2); classD(:,2); classE(:,2)]) : 0.1 : max([classC(:,2); classD(:,2); classE(:,2)]);
 
 [X_GED_2,Y_GED_2] = meshgrid(x_2, y_2); % grid coordinates for plotting
-XY_2 = [X_GED_2(:) Y_GED_2(:)] % space for MICD
+XY_2 = [X_GED_2(:) Y_GED_2(:)]; % space for MICD
 
 
 % Class C
@@ -98,7 +98,7 @@ XY_2 = [X_GED_2(:) Y_GED_2(:)] % space for MICD
 
 % Compute orthonomal whitening transform
 lambda = diag(diag(eval2c).^-(1/2));
-W_2 = lambda*transpose(evec2c);
+W_2C = lambda*transpose(evec2c); 
 
 % Compute new mean
 m_primeC = W_2*muC;
@@ -109,7 +109,7 @@ m_primeC = W_2*muC;
 
 % Compute orthonomal whitening transform
 lambda = diag(diag(eval2d).^-(1/2));
-W_2 = lambda*transpose(evec2d);
+W_2D = lambda*transpose(evec2d);
 
 % Compute new mean
 m_primeD = W_2*muD;
@@ -120,19 +120,19 @@ m_primeD = W_2*muD;
 
 % Compute orthonomal whitening transform
 lambda = diag(diag(eval2e).^-(1/2));
-W_2 = lambda*transpose(evec2e);
+W_2E = lambda*transpose(evec2e)
 
 % Compute new mean
 m_primeE = W_2*muE;
 
 % Find MICD boundary
-dist_c = sqrt(sum(((XY_2 - repmat(muC', [length(XY_2) 1]))*W_2').^2, 2)); % Calculate distance between point and sample mean
-dist_d = sqrt(sum(((XY_2 - repmat(muD', [length(XY_2) 1]))*W_2').^2, 2));
-dist_e = sqrt(sum(((XY_2 - repmat(muE', [length(XY_2) 1]))*W_2').^2, 2));
+dist_c = sqrt(sum(((XY_2 - repmat(muC', [length(XY_2) 1]))*W_2C').^2, 2)); % Calculate distance between point and sample mean
+dist_d = sqrt(sum(((XY_2 - repmat(muD', [length(XY_2) 1]))*W_2D').^2, 2));
+dist_e = sqrt(sum(((XY_2 - repmat(muE', [length(XY_2) 1]))*W_2E').^2, 2));
 
-d = [dist_c dist_d dist_e];
+d_2 = [dist_c dist_d dist_e]; % I think something is wrong here
 
-[M_2,I_2] = min(d, [], 2); % I returns class of min distance
+[M_2,I_2] = min(d_2, [], 2); % I returns class of min distance
 micd2 = reshape(I_2, size(X_GED_2));
 
 figure(2)
