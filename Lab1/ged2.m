@@ -18,7 +18,7 @@ meanB = mean(classB);
 nC = 100;
 muC = [5;10];
 sigmaC = [8 4; 4 40];
-classC = C'
+classC = C';
 meanC = mean(classC);
 
 
@@ -26,14 +26,14 @@ meanC = mean(classC);
 nD = 200;
 muD = [15;10];
 sigmaD = [8 0; 0 8];
-classD = D'
+classD = D';
 meanD = mean(classD);
 
 % Class E
 nE = 150;
 muE = [10;5];
 sigmaE = [10 -5; -5 20];
-classE = E'
+classE = E';
 meanE = mean(classE);
 
 % For Gen Euc Metric, need to find e-vals, e-vecs, apply transform, then
@@ -45,7 +45,7 @@ x_1 = min([classA(:,1); classB(:,1)]) : 0.1 : max([classA(:,1); classB(:,1)]); %
 y_1 = min([classA(:,2); classB(:,2)]) : 0.1 : max([classA(:,2); classB(:,2)]);
 
 [X_GED_1,Y_GED_1] = meshgrid(x_1, y_1); % grid coordinates for plotting
-XY = [X_GED_1(:) Y_GED_1(:)] % space for MICD
+XY = [X_GED_1(:) Y_GED_1(:)]; % space for MICD
 
 
 % Class A
@@ -80,7 +80,7 @@ d = [dist_a dist_b];
 micd1 = reshape(I, size(X_GED_1));
 
 figure(1)
-contour(X_GED_1,Y_GED_1,micd1, [2 2],'m', 'DisplayName','GED boundary')
+contour(X_GED_1,Y_GED_1,micd1, [2 2],'m')
 hold on
 
 %% Calculate GED for Case 2
@@ -89,7 +89,7 @@ x_2 = min([classC(:,1); classD(:,1); classE(:,1)]) : 0.1 : max([classC(:,1); cla
 y_2 = min([classC(:,2); classD(:,2); classE(:,2)]) : 0.1 : max([classC(:,2); classD(:,2); classE(:,2)]);
 
 [X_GED_2,Y_GED_2] = meshgrid(x_2, y_2); % grid coordinates for plotting
-XY_2 = [X_GED_2(:) Y_GED_2(:)] % space for MICD
+XY_2 = [X_GED_2(:) Y_GED_2(:)]; % space for MICD
 
 
 % Class CF
@@ -136,15 +136,17 @@ d = [dist_c dist_d dist_e];
 micd2 = reshape(I_2, size(X_GED_2));
 
 figure(2)
-contour(X_GED_2,Y_GED_2,micd2,'m','DisplayName','GED boundary')
+contour(X_GED_2,Y_GED_2,micd2==1,1,'m','DisplayName','GED boundary');
+contour(X_GED_2,Y_GED_2,micd2==2,1,'m','DisplayName','');
+contour(X_GED_2,Y_GED_2,micd2==3,1,'m','DisplayName','');
 hold on
 
 %% Part 4 - GED
-GED_1_classify = classify(X_GED_1, Y_GED_1, micd1, classA, 1, classB, 2);
+GED_1_classify = classify(X_GED_1, Y_GED_1, micd1, Atest, 1, Btest, 2);
 confusionMatrix_GED_1 = confusionmat(GED_1_classify(:,1),GED_1_classify(:,2));
 error_GEDCase_1 = size(find(GED_1_classify(:,1) ~= GED_1_classify(:,2)),1)/size(GED_1_classify,1);
 
-GED_2_classify = classify(X_GED_2, Y_GED_2, micd2, classC, 1, classD, 2, classE, 3);
+GED_2_classify = classify(X_GED_2, Y_GED_2, micd2, Ctest, 1, Dtest, 2, Etest, 3);
 confusionMatrix_GED_2 = confusionmat(GED_2_classify(:,1),GED_2_classify(:,2));
 error_GEDCase_2 = size(find(GED_2_classify(:,1) ~= GED_2_classify(:,2)),1)/size(GED_2_classify,1);
 

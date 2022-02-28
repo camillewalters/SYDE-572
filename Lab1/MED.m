@@ -65,14 +65,18 @@ y2 = linspace(y2min, y2max, resolution*(y2max - y2min));
 boundary2 = MED2(muC, muD, muE, X2, Y2);
 figure(2);
 
-contour(X2, Y2, boundary2, 'Color', 'black')
+contour(X2, Y2, boundary2 == 1, 1, 'k','DisplayName','MED boundary');
+contour(X2, Y2, boundary2 == 2, 1, 'k','DisplayName','');
+contour(X2, Y2, boundary2 == 3, 1, 'k','DisplayName','');
+
 hold on;
 
-MED_1_classify = classify(X1, Y1, boundary1, classA, 1, classB, 2);
+%calculate error
+MED_1_classify = classify(X1, Y1, boundary1, Atest, 1, Btest, 2);
 confusionMatrix_MED_1 = confusionmat(MED_1_classify(:,1),MED_1_classify(:,2));
 error_MEDCase_1 = size(find(MED_1_classify(:,1) ~= MED_1_classify(:,2)),1)/size(MED_1_classify,1);
 
-MED_2_classify = classify(X2, Y2, boundary2, classC, 1, classD, 2, classE, 3);
+MED_2_classify = classify(X2, Y2, boundary2, Ctest, 1, Dtest, 2, Etest, 3);
 confusionMatrix_MED_2 = confusionmat(MED_2_classify(:,1),MED_2_classify(:,2));
 error_MEDCase_2 = size(find(MED_2_classify(:,1) ~= MED_2_classify(:,2)),1)/size(MED_2_classify,1);
 

@@ -1,7 +1,8 @@
-% clear;
-% close all;
+clear;
+close all;
 clf;
 
+%GENERATE AND PLOT CLUSTERS FOR CASE 1
 figure(1);
 muA = [5 10]';
 sigmaA = [8 0 ; 0 4];
@@ -18,6 +19,14 @@ ylabel('X_2')
 title("Case 1 Clusters")
 legend("Class A", "Class A Standard Deviation Contour", "Class B", "Class B Standard Deviation Contour", 'Location', 'best')
 
+%create test sets for case 1
+Atest = generate(muA, sigmaA, 200);
+Atest = Atest';
+Btest = generate(muB, sigmaB, 200);
+Btest = Btest';
+
+
+%GENERATE AND PLOT CLUSTERS FOR CASE 2
 figure(2);
 muC = [5 10]';
 sigmaC = [8 4; 4 40];
@@ -40,6 +49,20 @@ ylabel('X_2')
 title("Case 2 Clusters")
 legend("Class C", "Class C Standard Deviation Contour", "Class D", "Class D Standard Deviation Contour", "Class E", "Class E Standard Deviations Contour", 'Location', 'best')
 
+%create test sets for case 1
+Ctest = generate(muC, sigmaC, 100);
+Ctest = Ctest';
+Dtest = generate(muD, sigmaD, 200);
+Dtest = Dtest';
+Etest = generate(muE, sigmaE, 150);
+Etest = Etest';
+
+
+% CALL CLASSIFIERS
+MED();
 map();
-ged2()
+map2();
+ged2();
+% nn_knn();
+
 

@@ -8,7 +8,7 @@ classA = A';
  meanA = mean(classA);
 
 % Class B
-nB = 200;
+ nB = 200;
 muB = [10;15];
 sigmaB = [8 0; 0 4];
 classB = B';
@@ -59,11 +59,17 @@ logPosteriorB = zeros(arrSize);
 
 for i = 1:size(feature1Vals,2)
     for j = 1:size(feature2Vals,2)
+%         x = [feature1Vals(i), feature2Vals(j)];
+%         logLikihoodA = -log(2*pi*sqrt(det(sigmaA))) -0.5 * (x - meanA) * inv(sigmaA) * (x - meanA)';
+%         logLikihoodB = -log(2*pi*sqrt(det(sigmaB))) -0.5 * (x - meanB) * inv(sigmaB) * (x - meanB)';
+%         logPosteriorA(j,i) = logLikihoodA + log(priorA);
+%         logPosteriorB(j,i) = logLikihoodB + log(priorB);
+
         x = [feature1Vals(i), feature2Vals(j)];
-        logLikihoodA = -log(2*pi*sqrt(det(sigmaA))) -0.5 * (x - meanA) * inv(sigmaA) * (x - meanA)';
-        logLikihoodB = -log(2*pi*sqrt(det(sigmaB))) -0.5 * (x - meanB) * inv(sigmaB) * (x - meanB)';
-        logPosteriorA(j,i) = logLikihoodA + log(priorA);
-        logPosteriorB(j,i) = logLikihoodB + log(priorB);
+        logLikihoodA = -log(2*pi*sqrt(1)) -0.5 * (x - meanA) * inv(sigmaA) * (x - meanA)';
+        logLikihoodB = -log(2*pi*sqrt(1)) -0.5 * (x - meanB) * inv(sigmaB) * (x - meanB)';
+        logPosteriorA(j,i) = logLikihoodA + log(0.5);
+        logPosteriorB(j,i) = logLikihoodB + log(0.5);
         
         if(logPosteriorA(j,i) > logPosteriorB(j,i))
             pointsCase1(j,i) = 1; %class A            
@@ -81,7 +87,7 @@ end
 figure(1);
 set(gca, 'ydir', 'normal');
 [X_MAPCase_1, Y_MAPCase_1] = meshgrid(feature1Vals, feature2Vals);
-contour(X_MAPCase_1,Y_MAPCase_1,pointsCase1,[2 2])
+contour(X_MAPCase_1,Y_MAPCase_1,pointsCase1,[2 2],'DisplayName','MAP boundary')
 hold on;
 % xlabel('X_1')
 % ylabel('X_2')
@@ -115,13 +121,21 @@ for i = 1:size(feature1Vals,2)
     for j = 1:size(feature2Vals,2)
         x = [feature1Vals(i), feature2Vals(j)];
         
-        logLikihoodC = -log(2*pi*sqrt(det(sigmaC))) -0.5 * (x - meanC) * inv(sigmaC) * (x - meanC)';
-        logLikihoodD = -log(2*pi*sqrt(det(sigmaD))) -0.5 * (x - meanD) * inv(sigmaD) * (x - meanD)';
-        logLikihoodE = -log(2*pi*sqrt(det(sigmaE))) -0.5 * (x - meanE) * inv(sigmaE) * (x - meanE)';
-        
-        logPosteriorC(j,i) = logLikihoodC + log(priorC);
-        logPosteriorD(j,i) = logLikihoodD + log(priorD);
-        logPosteriorE(j,i) = logLikihoodE + log(priorE);
+%         logLikihoodC = -log(2*pi*sqrt(det(sigmaC))) -0.5 * (x - meanC) * inv(sigmaC) * (x - meanC)';
+%         logLikihoodD = -log(2*pi*sqrt(det(sigmaD))) -0.5 * (x - meanD) * inv(sigmaD) * (x - meanD)';
+%         logLikihoodE = -log(2*pi*sqrt(det(sigmaE))) -0.5 * (x - meanE) * inv(sigmaE) * (x - meanE)';
+
+        logLikihoodC = -log(2*pi*sqrt(1)) -0.5 * (x - meanC) * inv(sigmaC) * (x - meanC)';
+        logLikihoodD = -log(2*pi*sqrt(1)) -0.5 * (x - meanD) * inv(sigmaD) * (x - meanD)';
+        logLikihoodE = -log(2*pi*sqrt(1)) -0.5 * (x - meanE) * inv(sigmaE) * (x - meanE)';
+%         
+%         logPosteriorC(j,i) = logLikihoodC + log(priorC);
+%         logPosteriorD(j,i) = logLikihoodD + log(priorD);
+%         logPosteriorE(j,i) = logLikihoodE + log(priorE);
+
+        logPosteriorC(j,i) = logLikihoodC + log(0.3);
+        logPosteriorD(j,i) = logLikihoodD + log(0.3);
+        logPosteriorE(j,i) = logLikihoodE + log(0.3);
         
         if(logPosteriorC(j,i) > logPosteriorD(j,i) && logPosteriorC(j,i) > logPosteriorE(j,i))
             pointsCase2(j,i) = 1; %class C
@@ -139,10 +153,7 @@ end
 figure(2)
 set(gca, 'ydir', 'normal');
 [X_MAPCase_2, Y_MAPCase_2] = meshgrid(feature1Vals, feature2Vals);
-contour(X_MAPCase_2,Y_MAPCase_2,pointsCase2 == 1,1,'c','DisplayName','MAP boundary');
-contour(X_MAPCase_2,Y_MAPCase_2,pointsCase2 == 2,1,'c','DisplayName','');
-contour(X_MAPCase_2,Y_MAPCase_2,pointsCase2 == 3,1,'c','DisplayName','');
-
+contour(X_MAPCase_2,Y_MAPCase_2,pointsCase2,3,'g','DisplayName','MAP boundary without probabilities')
 hold on;
 % xlabel('X_1')
 % ylabel('X_2')
