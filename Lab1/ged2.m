@@ -80,8 +80,8 @@ d = [dist_a dist_b];
 micd1 = reshape(I, size(X_GED_1));
 
 figure(1)
-contour(X_GED_1,Y_GED_1,micd1,'m', 'DisplayName','GED boundary')
-hold off
+contour(X_GED_1,Y_GED_1,micd1, [2 2],'m', 'DisplayName','GED boundary')
+hold on
 
 %% Calculate GED for Case 2
 % Initialize required vars
@@ -137,9 +137,14 @@ micd2 = reshape(I_2, size(X_GED_2));
 
 figure(2)
 contour(X_GED_2,Y_GED_2,micd2,'m','DisplayName','GED boundary')
-hold off
+hold on
 
 %% Part 4 - GED
-% Case 1
+GED_1_classify = classify(X_GED_1, Y_GED_1, micd1, classA, 1, classB, 2);
+confusionMatrix_GED_1 = confusionmat(GED_1_classify(:,1),GED_1_classify(:,2));
+error_GEDCase_1 = size(find(GED_1_classify(:,1) ~= GED_1_classify(:,2)),1)/size(GED_1_classify,1);
 
-% Case 2
+GED_2_classify = classify(X_GED_2, Y_GED_2, micd2, classC, 1, classD, 2, classE, 3);
+confusionMatrix_GED_2 = confusionmat(GED_2_classify(:,1),GED_2_classify(:,2));
+error_GEDCase_2 = size(find(GED_2_classify(:,1) ~= GED_2_classify(:,2)),1)/size(GED_2_classify,1);
+

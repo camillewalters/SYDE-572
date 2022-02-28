@@ -48,7 +48,7 @@ y1 = linspace(y1min, y1max, resolution*(y1max - y1min));
 % plot case 1
 boundary1 = MED1(muA, muB, X1, Y1);
 figure(1);
-contour(X1, Y1, boundary1, 'Color', 'black')
+contour(X1, Y1, boundary1, [2 2], 'Color', 'black')
 hold on;
 
 % setup case 2
@@ -67,6 +67,16 @@ figure(2);
 
 contour(X2, Y2, boundary2, 'Color', 'black')
 hold on;
+
+MED_1_classify = classify(X1, Y1, boundary1, classA, 1, classB, 2);
+confusionMatrix_MED_1 = confusionmat(MED_1_classify(:,1),MED_1_classify(:,2));
+error_MEDCase_1 = size(find(MED_1_classify(:,1) ~= MED_1_classify(:,2)),1)/size(MED_1_classify,1);
+
+MED_2_classify = classify(X2, Y2, boundary2, classC, 1, classD, 2, classE, 3);
+confusionMatrix_MED_2 = confusionmat(MED_2_classify(:,1),MED_2_classify(:,2));
+error_MEDCase_2 = size(find(MED_2_classify(:,1) ~= MED_2_classify(:,2)),1)/size(MED_2_classify,1);
+
+
 
 function res = MED1( mu1, mu2, X, Y )
 

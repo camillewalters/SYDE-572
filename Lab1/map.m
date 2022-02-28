@@ -42,8 +42,8 @@ classE = E';
 % set-up grid in featurespace to be populated with classifications
 minValue = floor(min(min(classA, classB)));
 maxValue = ceil(max(max(classA, classB)));
-feature1Vals = minValue(1):0.1:maxValue(1);
-feature2Vals = minValue(2):0.1:maxValue(2);
+feature1Vals = minValue(1):0.05:maxValue(1);
+feature2Vals = minValue(2):0.05:maxValue(2);
 arrSize = [size(feature2Vals,2) size(feature1Vals,2)];
 pointsCase1 = zeros(arrSize);
 
@@ -81,13 +81,12 @@ end
 figure(1);
 set(gca, 'ydir', 'normal');
 [X_MAPCase_1, Y_MAPCase_1] = meshgrid(feature1Vals, feature2Vals);
-scatter(classA(:,1),classA(:,2), 'r');
-scatter(classB(:,1),classB(:,2), 'b');
 contour(X_MAPCase_1,Y_MAPCase_1,pointsCase1,[2 2],'DisplayName','MAP boundary')
-xlabel('X_1')
-ylabel('X_2')
-title("Case 1 Classification Contour")
-legend("Class A", "Class B", "Classification Contour", 'Location', 'best')
+hold on;
+% xlabel('X_1')
+% ylabel('X_2')
+% title("Case 1 Classification Contour")
+%legend("Class A", "Class B", "Classification Contour", 'Location', 'best')
 
 %Classes C,D,E
 
@@ -137,22 +136,19 @@ for i = 1:size(feature1Vals,2)
 end
 
 %plotting
-figure
-hold on;
+figure(2)
 set(gca, 'ydir', 'normal');
 [X_MAPCase_2, Y_MAPCase_2] = meshgrid(feature1Vals, feature2Vals);
-scatter(classC(:,1),classC(:,2), 'r');
-scatter(classD(:,1),classD(:,2), 'b');
-scatter(classE(:,1),classE(:,2), 'g');
 contour(X_MAPCase_2,Y_MAPCase_2,pointsCase2, 'DisplayName','MAP boundary')
-xlabel('X_1')
-ylabel('X_2')
-title("Case 2 Classification Contour")
-legend("Class C", "Class D", "Class E", "Classification Contour", 'Location', 'best')
+hold on;
+% xlabel('X_1')
+% ylabel('X_2')
+% title("Case 2 Classification Contour")
+% legend("Class C", "Class D", "Class E", "Classification Contour", 'Location', 'best')
 
 %calculate errors
 MAP_1_classify = classify(X_MAPCase_1, Y_MAPCase_1, pointsCase1, classA, 1, classB, 2);
-confusionMatrix_MAPCase_1 = confusionmat(MAP_1_classify(:,1),MAP_1_classify(:,2));
+confusionMatrix_MAP_1 = confusionmat(MAP_1_classify(:,1),MAP_1_classify(:,2));
 error_MAPCase_1 = size(find(MAP_1_classify(:,1) ~= MAP_1_classify(:,2)),1)/size(MAP_1_classify,1);
 
 MAP_2_classify = classify(X_MAPCase_2, Y_MAPCase_2, pointsCase2, classC, 1, classD, 2, classE, 3);
