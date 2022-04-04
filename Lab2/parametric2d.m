@@ -25,9 +25,9 @@ y_range = min([a(:,2); b(:,2); c(:,2)]) : 0.1 : max([a(:,2); b(:,2); c(:,2)]);
 xy = [x(:) y(:)]; % space 
 
 % Calculate likelihood of each class
-dist_a = mvnpdf(xy, mu_A, sigma_A)
-dist_b = mvnpdf(xy, mu_B, sigma_B)
-dist_c = mvnpdf(xy, mu_C, sigma_C)
+dist_a = mvnpdf(xy, mu_A, sigma_A);
+dist_b = mvnpdf(xy, mu_B, sigma_B);
+dist_c = mvnpdf(xy, mu_C, sigma_C);
 
 d = [dist_a dist_b dist_c]
 
@@ -48,4 +48,4 @@ ylabel('X_2')
 legend("Class A", "Class B", "Class C")
 hold off
 
-% end
+end

@@ -58,7 +58,6 @@ load("lab2_2");
 % parametric estimation
 parametric2d(al,bl,cl)
 % non-parametric estimation
-%%
 
 % Sequential Discriminant
 load("lab2_3");

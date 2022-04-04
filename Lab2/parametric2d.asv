@@ -35,14 +35,17 @@ d = [dist_a dist_b dist_c]
 
 [M,I] = max(d, [], 2); % I returns class of max likelihood
 ml = reshape(I, size(x));
-
+%%
 % Plot
 contour(x,y,ml);
 hold on
 scatter(a(:,1), a(:,2));
 scatter(b(:,1), b(:,2));
 scatter(c(:,1), c(:,2));
-title("2D Case: Parzen Window Estimation, h = 0.1");
+title("2D Case: Parametric Estimation")
+xlabel('X_1')
+ylabel('X_2')
+legend("Class A", "Class B", "Class C")
 hold off
 
 % end
