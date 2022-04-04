@@ -62,16 +62,16 @@ Etest = Etest';
 MED();
 ged2();
 map();
-map2();
-nn_knn();
+% map2();
+% nn_knn();
 
 figure(1);
 title("Case 1 MED vs MAP vs GED Boundaries");
 legend("Class A", "Class A Standard Deviation Contour", "Class B", "Class B Standard Deviation Contour", ...
-    "MED Boundary","GED Boundary","MAP Boundary","MAP Modified Boundary",'Location', 'best')
+    "MED Boundary","","","GED Boundary","","","MAP Boundary",'Location', 'best')
 
 figure(2);
 title("Case 2 MED vs MAP vs GED Boundaries");
 legend("Class C", "Class C Standard Deviation Contour", "Class D", "Class D Standard Deviation Contour", "Class E", "Class E Standard Deviation Contour", ...
-    "MED Boundary","","","GED Boundary","","","MAP Boundary","","","MAP Modified Boundary",'Location', 'best')
+    "MED Boundary","","","GED Boundary","","","MAP Boundary",'Location', 'best')
 

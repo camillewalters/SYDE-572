@@ -1,0 +1,45 @@
+function parzen1d = parzen1d (data, h, res)
+
+    figure();
+    data = data(1:5);
+
+    xmin = min(data) - 2;
+    xmax = max(data) + 2;
+        xlim([xmin, xmax])
+    ylim([-1,10]);
+
+%     syms x 
+
+    hold on;
+    y = zeros(length(data),1);
+    scatter(data,y);
+
+    f = zeros((xmax-xmin)/res,1);
+
+    for j = xmin:res:xmax
+        for i = 1:length(data)
+            mean = data(i);
+            val = gauss(j,mean,h)
+            f()
+
+            fplot(f,[xmin, xmax],'cyan');
+            f_total = f_total + f;
+        end
+    
+        fplot(f_total,[xmin, xmax],'red');
+
+    end
+
+
+
+
+
+    end
+
+function val = gauss(x,mean,h)
+    if abs(x-mean) > 3*h
+        val = 0;
+    else
+        val = (1/h)*(1/sqrt(2*pi)) * exp((-1/2)*((x-mean)/h)^2));
+    end
+end
