@@ -1,5 +1,4 @@
 
-
 clear;
 close all;
 clf;
@@ -70,4 +69,7 @@ function plotb_true(lam)
     f = piecewise(x<0,0,x>=0,lam*exp(-lam*x));
     fplot(f);
 end
+
+
+
 
