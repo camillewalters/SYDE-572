@@ -1,9 +1,6 @@
 function parametric2d(a,b,c)
 
 % Compute the sample mean and sample covariance of each class a, b, c
-a = al;
-b = bl;
-c = cl;
 % Class A
 mu_A = mean(a);
 sigma_A = cov(a);
@@ -29,7 +26,7 @@ dist_a = mvnpdf(xy, mu_A, sigma_A);
 dist_b = mvnpdf(xy, mu_B, sigma_B);
 dist_c = mvnpdf(xy, mu_C, sigma_C);
 
-d = [dist_a dist_b dist_c]
+d = [dist_a dist_b dist_c];
 
 % Find max likelihood
 
@@ -37,6 +34,7 @@ d = [dist_a dist_b dist_c]
 ml = reshape(I, size(x));
 
 % Plot
+figure(1)
 contour(x,y,ml);
 hold on
 scatter(a(:,1), a(:,2));
