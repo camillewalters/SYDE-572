@@ -53,7 +53,15 @@ title("Case B: Parzen Window Estimation, h = 0.4");
 plotb_true(1);
 legend("Sample Data","Estimated PDF","True Origin PDF");
 
-%%Sequential Discriminant
+% Model Estimation 2D Case
+load("lab2_2");
+% parametric estimation
+parametric2d(al,bl,cl)
+% non-parametric estimation
+non_parametric2d(al,bl,cl)
+
+
+% Sequential Discriminant
 load("lab2_3");
 sequentialClassification(a,b);
 
