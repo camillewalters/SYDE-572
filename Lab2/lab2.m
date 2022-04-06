@@ -54,7 +54,6 @@ plotb_true(1);
 legend("Sample Data","Estimated PDF","True Origin PDF");
 %%
 % Model Estimation 2D Case
-clf;
 load("lab2_2");
 % parametric estimation
 parametric2d(al,bl,cl)
