@@ -4,6 +4,12 @@ close all;
 clf;
 
 %PART 2: 1D 
+x_a = 0:0.01:(max(a)+2);
+x_b = 0:0.01:(max(b)+2);
+mu_a = 5;
+sd_a = 1;
+lambda_b = 1;
+
 % plot the samples along the x axis
 load("lab_2_data\lab2_1.mat");
 
@@ -15,6 +21,74 @@ figure();
 scatter(b,y);
 title("Case B Samples");
 
+%PART 2.1: GAUSSSIAN
+
+% case a 
+[gauss_mu_a, gauss_sd_a] = gaussian1d(a);
+p_a_actual = normpdf(x_a, mu_a, sd_a);
+p_a_est = normpdf(x_a, gauss_mu_a, gauss_sd_a);
+
+figure;
+hold on;
+scatter(a,y);
+plot(x_a, p_a_est);
+plot(x_a, p_a_actual);
+xlabel('x'); 
+ylabel('p(x)');
+title("Case A: Gaussian Parametrics Estimation");
+legend("Sample Data","Estimated PDF","True Origin PDF");
+hold off;
+
+% case b 
+[gauss_mu_b, gauss_sd_b] = gaussian1d(b);
+p_b_actual = exppdf(x_b,1/lambda_b);
+p_b_est = normpdf(x_b, gauss_mu_b, gauss_sd_b);
+
+figure;
+hold on;
+scatter(b,y);
+plot(x_b, p_b_est);
+plot(x_b, p_b_actual);
+xlabel('x'); 
+ylabel('p(x)');
+title("Case B: Gaussian Parametrics Estimation");
+legend("Sample Data","Estimated PDF","True Origin PDF");
+hold off;
+
+%PART 2.2: EXPONENTIAL  
+
+% case a 
+[lambda_a_est] = exponential1d(a);
+p_a_actual = normpdf(x_a, mu_a, sd_a);
+p_a_est = exppdf(x_a, 1/lambda_a_est);
+
+figure;
+hold on;
+scatter(a,y);
+plot(x_a, p_a_est);
+plot(x_a, p_a_actual);
+xlabel('x'); 
+ylabel('p(x)');
+title("Case A: Expontential Parametrics Estimation");
+legend("Sample Data","Estimated PDF","True Origin PDF");
+hold off;
+
+
+% case b 
+[lambda_b_est] = exponential1d(b);
+p_b_actual = exppdf(x_b,1/lambda_b);
+p_b_est = exppdf(x_b, 1/lambda_b_est);
+
+figure;
+hold on;
+scatter(b,y);
+plot(x_b, p_b_est);
+plot(x_b, p_b_actual);
+xlabel('x'); 
+ylabel('p(x)');
+title("Case B: Expontential Parametrics Estimation");
+legend("Sample Data","Estimated PDF","True Origin PDF");
+hold off;
 
 %PART 2.3: UNIFORM
 [a_a, b_a] = uniform1d(a);
