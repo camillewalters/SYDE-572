@@ -35,15 +35,16 @@ ml = reshape(I, size(x));
 
 % Plot
 figure(1)
-contour(x,y,ml);
 hold on
-scatter(a(:,1), a(:,2));
-scatter(b(:,1), b(:,2));
-scatter(c(:,1), c(:,2));
+scatter(a(:,1), a(:,2),'r');
+scatter(b(:,1), b(:,2),'b');
+scatter(c(:,1), c(:,2),'g');
+
+contour(x,y,ml,'LineWidth',2);
 title("2D Case: Parametric Estimation")
 xlabel('X_1')
 ylabel('X_2')
-legend("Class A", "Class B", "Class C")
+legend("Class A", "Class B", "Class C","ML Boundary")
 hold off
 
 end
