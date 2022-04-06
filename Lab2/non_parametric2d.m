@@ -22,11 +22,14 @@ y_min = min([a(:,2); b(:,2); c(:,2)]);
 y_max = max([a(:,2); b(:,2); c(:,2)]);
 inc = 0.5;
 res = [inc x_min y_min x_max y_max];
+sigma = sqrt(400); % given in lab
+L = 1500; % can adjust to play with fitting
+alpha = (L-1)/(2*sigma)
 
 % Use a Gaussian Parzen window (σ2 = 400) on the learning data to estimate a PDF for each cluster. 
-[pdf_a,x_a,y_a] = parzen(a, res, gausswin(1000, 24.975));
-[pdf_b,x_b,yb] = parzen(b, res, gausswin(1000, 24.975));
-[pdf_c,x_c,y_c] = parzen(c, res, gausswin(1000, 24.975));
+[pdf_a,x_a,y_a] = parzen(a, res, gausswin(L, alpha));
+[pdf_b,x_b,yb] = parzen(b, res, gausswin(L, alpha));
+[pdf_c,x_c,y_c] = parzen(c, res, gausswin(L, alpha));
 
 % Apply an ML classifier to the estimated PDFs 
 ml_A = reshape(pdf_a,[],1);
